@@ -33,7 +33,7 @@ public class EmployeeDao {
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
                     String hashedPasswordFromDB = resultSet.getString("hashed_password");
-                    if (password.equals(hashedPasswordFromDB)) {  // Use equals() for string comparison
+                    if (password.equals(hashedPasswordFromDB)) {
                         int id = resultSet.getInt("id");
                         String name = resultSet.getString("name");
                         String country = resultSet.getString("country");
@@ -139,7 +139,7 @@ public class EmployeeDao {
             int affectedRows = ps.executeUpdate();
 
             if (affectedRows > 0) {
-                // Deletion successful, return the count of affected rows
+
                 return Optional.of(affectedRows);
             } else {
                 // No rows were deleted
@@ -157,7 +157,7 @@ public class EmployeeDao {
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
                     int count = resultSet.getInt(1);
-                    return count > 0; // If count > 0, the email is registered
+                    return count > 0;
                 }
             }
         } catch (SQLException exception) {

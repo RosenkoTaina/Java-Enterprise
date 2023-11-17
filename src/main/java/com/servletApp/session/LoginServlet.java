@@ -27,11 +27,9 @@ public class LoginServlet extends HttpServlet {
         Optional<Employee> optionalEmployee = employeeDao.authenticate(email, password);
 
         if (optionalEmployee.isPresent()) {
-            // User is authenticated
             AuthenticationHelper.handleSuccessfulLogin(request, response, email);
 
         } else {
-            // User authentication failed
             AuthenticationHelper.handleUnsuccessfulLogin(request, response);
         }
     }

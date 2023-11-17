@@ -19,13 +19,12 @@ public class WelcomeServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Fetch the list of employees from the database
+
         List<Employee> employeeList = employeeDao.getAllEmployees();
 
-        // Set attributes in request scope
+
         request.setAttribute("employeeList", employeeList);
 
-        // Forward to the welcome.jsp page
         RequestDispatcher dispatcher = request.getRequestDispatcher("welcome.jsp");
         dispatcher.forward(request, response);
     }

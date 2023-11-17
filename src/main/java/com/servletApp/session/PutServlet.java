@@ -21,7 +21,7 @@ public class PutServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         try {
-            // Отримання параметрів з запиту
+
             String sid = request.getParameter("id");
             int id = Integer.parseInt(sid);
 
@@ -31,10 +31,10 @@ public class PutServlet extends HttpServlet {
             String country = request.getParameter("country");
             String role = request.getParameter("role");
 
-            // Створення об'єкта Employee
+
             Employee employee = new Employee(id, name, email, password, country, role);
 
-            // Оновлення користувача в базі даних
+
             int status = employeeDao.updateUser(employee);
 
             if (status > 0) {

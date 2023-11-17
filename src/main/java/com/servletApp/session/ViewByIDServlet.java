@@ -3,6 +3,7 @@ package com.servletApp.session;
 
 import com.servletApp.entity.Employee;
 import com.servletApp.repository.EmployeeDao;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,22 +19,26 @@ public class ViewByIDServlet extends HttpServlet {
 
     private final EmployeeDao employeeDao = new EmployeeDao();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String sid = request.getParameter("ID");
-        int id = Integer.parseInt(sid);
+        int id = 0;
+        try {
+            id = Integer.parseInt(sid);
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Invalid ID");
+            request.getRequestDispatcher("/viewByID.jsp").forward(request, response);
+            return;
+        }
 
         Optional<Employee> employee  = employeeDao.getEmployeeById(id);
 
         if (employee.isPresent()) {
-            out.print(employee.get());
+            request.setAttribute("employee", employee.get());
+            request.getRequestDispatcher("/viewByID.jsp").forward(request, response);
         } else {
-            out.print("Employee not found");
+            request.setAttribute("error", "Employee not found");
+            request.getRequestDispatcher("/viewByID.jsp").forward(request, response);
         }
-
-        out.close();
     }
 }

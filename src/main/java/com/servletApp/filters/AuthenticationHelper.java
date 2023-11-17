@@ -29,7 +29,22 @@ public class AuthenticationHelper {
             throws IOException {
         createSession(request, email);
         createCookie(response, email);
-        response.sendRedirect(request.getContextPath() + "/welcome.jsp"); // Redirect to welcome page
+        response.sendRedirect(request.getContextPath() + "/welcome.jsp");
+    }
+
+    public static void deleteSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        deleteCookie(response, "email");
+        response.sendRedirect(request.getContextPath());
+    }
+
+    private static void deleteCookie(HttpServletResponse response, String name) {
+        Cookie cookie = new Cookie(name, "");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
     }
 }
 

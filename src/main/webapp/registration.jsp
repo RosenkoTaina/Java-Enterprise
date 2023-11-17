@@ -3,21 +3,33 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Save Employee</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
         }
-        .container {
-            width: 300px;
-            padding: 16px;
-            background-color: white;
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        form {
+            max-width: 600px;
             margin: 0 auto;
-            margin-top: 50px;
-            border: 1px solid black;
-            border-radius: 4px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
         }
-        input[type=text], input[type=email], input[type=password] {
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="submit"] {
             width: 100%;
             padding: 12px 20px;
             margin: 8px 0;
@@ -25,53 +37,36 @@
             border: 1px solid #ccc;
             box-sizing: border-box;
         }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
+
+        input[type="submit"] {
+            background-color: #4CAF50; /* зміна кольору кнопки на зелений */
+            color: #fff;
             cursor: pointer;
-            width: 100%;
-        }
-        .error {
-            color: red;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>User Registration</h2>
 
-        <c:if test="${param.error == 'email'}">
-            <p style="color: red;">Email is already registered. Please use a different email.</p>
-        </c:if>
+    <h2>Save Employee</h2>
 
-        <c:if test="${param.error == 'registration'}">
-            <p style="color: red;">Registration failed. Please try again.</p>
-        </c:if>
+    <form action="saveServlet" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
 
-        <form action="<%=request.getContextPath()%>/registrationServlet" method="post">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br>
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" required><br>
 
-            <label for="country">Country:</label>
-            <input type="text" id="country" name="country" required><br>
+        <label for="hashed_password">Password:</label>
+        <input type="password" id="hashed_password" name="hashed_password" required><br>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required><br>
+        <label for="role">Role:</label>
+        <input type="text" id="role" name="role" required><br>
 
-            <input type="Submit" value="Register">
-        </form>
+        <input type="submit" value="Save">
+    </form>
 
-        <p>Already have an account? <a href="<%=request.getContextPath()%>/login.jsp">Login here</a></p>
-    </div>
-
-    <script>
-        // Your JavaScript code here
-    </script>
 </body>
 </html>
