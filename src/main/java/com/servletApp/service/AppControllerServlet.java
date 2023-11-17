@@ -7,6 +7,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 
 @WebServlet("/servletApp/*")
@@ -23,31 +25,35 @@ public class AppControllerServlet extends HttpServlet {
         doGet(request, response);
     }
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getPathInfo();  // Use getPathInfo to get the path after the servlet mapping
+        String action = request.getParameter("action");
+
+        if (!isAuthenticated(request)) {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
 
         switch (action) {
-            case "/viewServlet":
+            case "viewServlet":
                 viewServlet(request, response);
                 break;
-            case "/registrationServlet":
+            case "registrationServlet":
                 registrationServlet(request, response);
                 break;
-            case "/logoutServlet":
+            case "logoutServlet":
                 logoutServlet(request, response);
                 break;
-            case "/deleteServlet":
+            case "deleteServlet":
                 deleteServlet(request, response);
                 break;
-            case "/putServlet":
+            case "putServlet":
                 putServlet(request, response);
                 break;
-            case "/saveServlet":
+            case "saveServlet":
                 saveServlet(request, response);
                 break;
-            case "/viewByIDServlet":
+            case "viewByIDServlet":
                 viewByIDServlet(request, response);
                 break;
             default:
@@ -56,61 +62,51 @@ public class AppControllerServlet extends HttpServlet {
         }
     }
 
+    private boolean isAuthenticated(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        return session != null;
+    }
+
     private void registrationServlet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/registrationServlet");
-            dispatcher.forward(request, response);
+        response.sendRedirect("/registrationServlet");
     }
 
     private void loginServlet(HttpServletRequest request, HttpServletResponse response)
-           throws ServletException, IOException {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/loginServlet");
-            dispatcher.forward(request, response);
+            throws ServletException, IOException {
+        response.sendRedirect("/loginServlet");
     }
-
 
     private void logoutServlet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/logoutServlet");
-        dispatcher.forward(request, response);
+        response.sendRedirect("/logoutServlet");
     }
-
 
     private void deleteServlet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/deleteServlet");
-        dispatcher.forward(request, response);
+        response.sendRedirect("/deleteServlet");
     }
 
     private void putServlet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/putServlet");
-        dispatcher.forward(request, response);
-
+        response.sendRedirect("/putServlet");
     }
 
     private void saveServlet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/saveServlet");
-        dispatcher.forward(request, response);
-
+        response.sendRedirect("/saveServlet");
     }
 
     private void viewByIDServlet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/viewByIDServlet");
-        dispatcher.forward(request, response);
-
+        response.sendRedirect("/viewByIDServlet");
     }
 
     private void viewServlet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/viewServlet");
-        dispatcher.forward(request, response);
-
+        response.sendRedirect("/viewServlet");
     }
 }
-
 
 
 

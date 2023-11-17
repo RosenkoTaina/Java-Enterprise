@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
 </head>
 <body>
 
@@ -15,40 +13,16 @@
         <div style="color: green;">${message}</div>
     </c:if>
 
-    <!-- Display the list of employees -->
-    <c:if test="${not empty employeeList}">
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Country</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="employee" items="${employeeList}">
-                    <tr>
-                        <td>${employee.id}</td>
-                        <td>${employee.name}</td>
-                        <td>${employee.email}</td>
-                        <td>${employee.country}</td>
-                        <td>
-                            <a href="<%=request.getContextPath()%>/servletApp/viewByIDServlet?ID=${employee.id}">View</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <a href="<%=request.getContextPath()%>/servletApp/deleteServlet?id=${employee.id}">Delete</a>
-                            <!-- Add more actions as needed -->
-                        </td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </c:if>
 
-    <br>
+    <p>Choose an option:</p>
+    <ul>
+    <li><button onclick="location.href='<%=request.getContextPath()%>/viewServlet'">View</button></li>
+    <li><button onclick="location.href='viewByID.jsp'">View by ID</button></li>
+    <li><button onclick="location.href='add.jsp'">Add New</button></li>
+    <li><button onclick="location.href='delete.jsp'">Delete</button></li>
+    <li><button onclick="location.href='<%=request.getContextPath()%>/logoutServlet'">Logout</button></li>
 
-    <!-- Add form or links for adding new employees, etc. -->
+    </ul>
 
 </body>
 </html>

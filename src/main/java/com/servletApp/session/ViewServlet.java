@@ -14,12 +14,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+
 //@WebServlet("/viewServlet")
 //public class ViewServlet extends HttpServlet {
 //
 //    private final EmployeeDao employeeDao = new EmployeeDao();
 //
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        response.setContentType("text/html");
 //
 //        try (PrintWriter out = response.getWriter()) {
@@ -29,8 +30,10 @@ import java.util.List;
 //                    .map(Employee::toString)
 //                    .forEach(out::print);
 //        }
+//
 //    }
 //}
+
 
 @WebServlet("/viewServlet")
 public class ViewServlet extends HttpServlet {
@@ -38,13 +41,9 @@ public class ViewServlet extends HttpServlet {
     private final EmployeeDao employeeDao = new EmployeeDao();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-
         List<Employee> list = employeeDao.getAllEmployees();
-        request.setAttribute("employeeList", list);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("welcome.jsp");
+        request.setAttribute("employeeList", list); // встановлюємо список співробітників як атрибут запиту
+        RequestDispatcher dispatcher = request.getRequestDispatcher("view.jsp"); // перенаправляємо запит на JSP сторінку
         dispatcher.forward(request, response);
-
     }
 }

@@ -132,18 +132,23 @@ public class EmployeeDao {
         return status;
     }
 
-    public int deleteUser(int id) {
-        int status = 0;
+    public Optional<Integer> deleteUser(int id) {
         try (Connection connection = ConnectionProvider.getCon();
              PreparedStatement ps = connection.prepareStatement(DELETE_USERS_SQL)) {
             ps.setInt(1, id);
-            status = ps.executeUpdate();
+            int affectedRows = ps.executeUpdate();
+
+            if (affectedRows > 0) {
+                // Deletion successful, return the count of affected rows
+                return Optional.of(affectedRows);
+            } else {
+                // No rows were deleted
+                return Optional.empty();
+            }
         } catch (SQLException exception) {
             throw new RuntimeException("An error occurred while deleting the user.", exception);
         }
-        return status;
     }
-
 
     public boolean isEmailRegistered(String email) {
         try (Connection connection = ConnectionProvider.getCon();
