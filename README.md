@@ -1,5 +1,5 @@
 # servletApp
 
 
-WildFly https://www.wildfly.org/
-PostgreSQL
+ WildFly https://www.wildfly.org/
+ PostgreSQL
