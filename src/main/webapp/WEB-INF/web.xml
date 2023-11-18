@@ -109,8 +109,17 @@
     </servlet-mapping>
 
 
+    <filter>
+        <filter-name>appControllerFilter</filter-name>
+        <filter-class>com.servletApp.filters.AppControllerFilter</filter-class>
+    </filter>
 
-    <!-- Add more entries for other servlets if needed -->
+    <filter-mapping>
+        <filter-name>appControllerFilter</filter-name>
+        <url-pattern>/servletApp/*</url-pattern>
+    </filter-mapping>
+
+
 
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
